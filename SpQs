@@ -1,0 +1,45 @@
+void superQs(int *a, int beg, int end)
+{
+ if (beg>=end) return;
+ 
+ int count=0;
+ for (int i= beg+1; i<=end; i++)
+   {
+    if (a[i]!=a[beg]) break;
+    else count++;
+   }
+ if (count==end-beg) return;
+
+ int sum=(count+1)*a[beg];
+ for (int j=beg+count+1; j<=end; ++j)
+     sum+=a[j];
+
+ float pivot= float(sum)/(end-beg+1);
+
+ int x=beg, y=end;
+ do
+  {
+   while (a[x]<pivot) x++;
+   while (a[y)>pivot) y--;
+
+   if (x>y) break;
+
+   if (x<y&&a[x]!=a[y])
+    {
+     int tmp=a[x]; a[x]=a[y]; a[y]=tmp;
+    }
+   x++; y--;
+
+   if (x==y&&a[x]==pivot)
+    {
+     superQs(a, beg, x-1);
+     superQs(a, x+1, end);
+     return;
+    }
+  } while (x<=y);
+ 
+ if (beg<y) superQs(a, beg, y);
+ if (x<end) superQs(a, x, end);
+ 
+ return;
+}
